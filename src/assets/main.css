@@ -6,7 +6,8 @@
   font-weight: normal;
 }
 
-body {
+body, 
+#app {
   min-height: 100vh;
   line-height: 1.6;
   font-family:
@@ -26,8 +27,4 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-#app {
-
 }
