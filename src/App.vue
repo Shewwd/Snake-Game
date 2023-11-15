@@ -1,24 +1,22 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-
-  import Header from './Components/Header.vue'
-
-  const clicks = ref(0);
-
-  const ClickFunction = () => {
-    clicks.value++;
-  };
+  import Header from './components/layout/Header.vue';
+  import Welcome from './components/Welcome.vue';
 </script>
 
 <template>
   <Header />
 
   <main>
-    <h1>Hello World</h1>
-    <button @click="ClickFunction()">Click me!</button>
-    <p>the amount of clicks is {{ clicks }}</p>
+    <Welcome />
   </main>
 </template>
 
 <style>
+  main {
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px 20px 0;
+  }
 </style>
