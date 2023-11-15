@@ -3,7 +3,7 @@
 
   const xPixels = 100;
   const yPixels = 100;
-  
+
   const rowHeight = computed(() => `${(window.innerHeight - 80) / yPixels}px`);
   const pixelWidth = computed(() => `${(window.innerWidth - 20) / xPixels}px`);
 
@@ -26,8 +26,8 @@
 <template>
   <div class="game-container">
     <div class="y-pixel-row" v-for="(row, yIndex) in yPixels" :key="yIndex" :style="{ height: rowHeight }">
-      <div v-for="(pixel, xIndex) in xPixels" :key="xIndex" :ref="setPixelRef(yIndex, xIndex)" :style="{ width: pixelWidth}"
-      ></div>
+      <div v-for="(pixel, xIndex) in xPixels" :key="xIndex" :ref="setPixelRef(yIndex, xIndex)" :style="{ width: pixelWidth}">
+      </div>
     </div>
   </div>
 </template>
