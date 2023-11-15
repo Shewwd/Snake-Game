@@ -1,39 +1,19 @@
 <script setup lang="ts">
-  import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+  import { computed, onMounted, onUnmounted, nextTick } from 'vue';
+  import { userFunctions } from './functions/UserFunctions.js'
+  import { pixelFunctions } from './functions/PixelFunctions.js'
+  import { keyboardFunctions } from './functions/KeyboardFunctions.js'
 
-  import { useUserMovement } from './functions/UserMovementFunctions.js'
-  import { usePixelUpdating } from './functions/PixelFunctions.js'
-  import { useKeyboardEvents } from './functions/KeyboardFunctions.js'
+  const xPixelCount = 50;
+  const yPixelCount = 50;
+  const rowHeight = computed(() => `${(window.innerHeight - 80) / yPixelCount}px`);
+  const pixelWidth = computed(() => `${(window.innerWidth - 20) / xPixelCount}px`);
 
-  const xPixels = 50;
-  const yPixels = 50;
+  const { pixelRefs, updatePixel } = pixelFunctions(xPixelCount, yPixelCount);
 
-  const { userX, userY, changeDirection } = useUserMovement();
-  const prevUserX = ref(userX.value);
-  const prevUserY = ref(userY.value); 
-  const userDirection = ref('right');
+  const { userX, userY, userDirection, userTickRate, updateUserPosition } = userFunctions(xPixelCount, yPixelCount, pixelRefs, updatePixel);
 
-  const userTickRate = ref(500);
-
-  const rowHeight = computed(() => `${(window.innerHeight - 80) / yPixels}px`);
-  const pixelWidth = computed(() => `${(window.innerWidth - 20) / xPixels}px`);
-
-  const { pixelRefs, updatePixels } = usePixelUpdating(xPixels, yPixels);
-
-  const updateUserPosition = () => {
-    if(userY.value - 1 < 0 || userY.value + 1 > yPixels || userX.value - 1 < 0 || userX.value + 1 > xPixels)
-      return;
-
-    prevUserX.value = userX.value;
-    prevUserY.value = userY.value;
-    updatePixels(prevUserX.value, prevUserY.value, false);
-
-    changeDirection(userDirection.value);
-    updatePixels(userX.value, userY.value, true);
-  };
-
-  const { handleKeyDown } = useKeyboardEvents(userDirection);
-
+  const { handleKeyDown } = keyboardFunctions(userDirection);
 
   let userInterval: number;
 
@@ -55,8 +35,8 @@
 
 <template>
  <div class="game-container">
-   <div class="y-pixel-row" v-for="(row, yIndex) in yPixels" :key="yIndex" :style="{ height: rowHeight }">
-     <div v-for="(pixel, xIndex) in xPixels" :key="xIndex" :style="{ width: pixelWidth, backgroundColor: pixelRefs[yIndex][xIndex]}">
+   <div class="y-pixel-row" v-for="(row, yIndex) in yPixelCount" :key="yIndex" :style="{ height: rowHeight }">
+     <div v-for="(pixel, xIndex) in xPixelCount" :key="xIndex" :style="{ width: pixelWidth, backgroundColor: pixelRefs[yIndex][xIndex]}">
      </div>
    </div>
  </div>

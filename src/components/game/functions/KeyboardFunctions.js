@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-export function useKeyboardEvents(userDirection) {
+export function keyboardFunctions(userDirection) {
   const handleKeyDown = (event) => {
     switch(event.key) {
       case 'ArrowUp':
