@@ -1,13 +1,11 @@
 <script setup lang="ts">
   import Header from './components/layout/Header.vue';
-  import Welcome from './components/Welcome.vue';
 </script>
 
 <template>
   <Header />
-
   <main>
-    <Welcome />
+    <router-view />
   </main>
 </template>
 
@@ -17,6 +15,6 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 10px 20px 0;
+    padding: 10px 20px;
   }
 </style>

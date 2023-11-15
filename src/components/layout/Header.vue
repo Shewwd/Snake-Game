@@ -11,6 +11,7 @@
 <style>
   header {
     min-width: 100vw;
+    height: 60px;
     display: inline-flex;
     padding: 10px 20px 5px;
     background-color: var(--main-color);
