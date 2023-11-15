@@ -4,19 +4,23 @@ export function keyboardFunctions(userDirection) {
   const handleKeyDown = (event) => {
     switch(event.key) {
       case 'ArrowUp':
-        userDirection.value = 'up';
+        if(userDirection.value !== 'down')
+          userDirection.value = 'up';
         break;
       case 'ArrowDown':
-        userDirection.value = 'down';
+        if(userDirection.value !== 'up')
+          userDirection.value = 'down';
         break;
       case 'ArrowLeft':
-        userDirection.value = 'left';
+        if(userDirection.value !== 'right')
+          userDirection.value = 'left';
         break;
       case 'ArrowRight':
-        userDirection.value = 'right';
+        if(userDirection.value !== 'left')
+          userDirection.value = 'right';
         break;
     }
   };
 
- return { handleKeyDown };
+ return handleKeyDown;
 }

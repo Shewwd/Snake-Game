@@ -9,11 +9,11 @@
   const rowHeight = computed(() => `${(window.innerHeight - 80) / yPixelCount}px`);
   const pixelWidth = computed(() => `${(window.innerWidth - 20) / xPixelCount}px`);
 
-  const { pixelRefs, updatePixel } = pixelFunctions(xPixelCount, yPixelCount);
+  const { pixelRefs, foodPixel, updatePixel } = pixelFunctions(xPixelCount, yPixelCount);
 
-  const { userX, userY, userDirection, userTickRate, updateUserPosition } = userFunctions(xPixelCount, yPixelCount, pixelRefs, updatePixel);
+  const { userX, userY, userTail, userDirection, userTickRate, updateUserPosition } = userFunctions(xPixelCount, yPixelCount, pixelRefs, foodPixel, updatePixel);
 
-  const { handleKeyDown } = keyboardFunctions(userDirection);
+  const handleKeyDown = keyboardFunctions(userDirection);
 
   let userInterval: number;
 
@@ -22,7 +22,11 @@
 
     document.addEventListener('keydown', handleKeyDown);
 
-    pixelRefs.value[userY.value][userX.value] = 'black';
+    updatePixel(userX.value, userY.value, true);
+
+    for(var i = 0; i < userTail.value.length; i++){
+      updatePixel(userTail.value[i].x, userTail.value[i].y, true);
+    }
 
     userInterval = setInterval(updateUserPosition, userTickRate.value);
   });
