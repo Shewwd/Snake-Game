@@ -4,7 +4,7 @@
 
 <template>
   <header class="unselectable">
-    <h1>Jacob Shawd</h1>
+    <h1>Snake Game</h1>
   </header>
 </template>
 
